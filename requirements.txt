@@ -1,6 +1,7 @@
 fastapi
 uvicorn
-natasha
+pydantic
+natasha==1.6.0
 presidio-analyzer
-transformers
-torch --index-url https://pytorch.org
+spacy
+langdetect

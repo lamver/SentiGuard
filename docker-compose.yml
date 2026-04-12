@@ -2,6 +2,8 @@ services:
   sentiguard-nlp:
     build: .
     container_name: sentiguard_nlp
+    environment:
+      - PRESIDIO_NLP_ENGINE_CONFIG={"nlp_engine_name":"spacy","models":[{"lang_code":"en","model_name":"en_core_web_sm"}]}
     ports:
       - "8000:8000"
     restart: unless-stopped
