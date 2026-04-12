@@ -1,0 +1,6 @@
+fastapi
+uvicorn
+natasha
+presidio-analyzer
+transformers
+torch --index-url https://pytorch.org
