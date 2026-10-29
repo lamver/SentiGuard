@@ -1,5 +1,5 @@
 fastapi==0.115.6
-uvicorn==0.34.0
+uvicorn==0.37.0
 pydantic==2.10.4
 natasha==1.6.0
 presidio-analyzer==2.2.357
