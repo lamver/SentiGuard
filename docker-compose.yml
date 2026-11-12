@@ -1,14 +1,12 @@
 services:
   sentiguard-nlp:
     build: .
+    image: sentiguard:latest
     container_name: sentiguard_nlp
     environment:
-      - PRESIDIO_NLP_ENGINE_CONFIG={"nlp_engine_name":"spacy","models":[{"lang_code":"en","model_name":"en_core_web_sm"}]}
+      - MAX_TEXT_LEN=100000
+    # По умолчанию слушаем только локально. Наружу отдавать через обратный прокси с авторизацией.
     ports:
-      - "8000:8000"
+      - "${BIND:-127.0.0.1}:${PORT:-8000}:8000"
+    mem_limit: 1500m
     restart: unless-stopped
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
