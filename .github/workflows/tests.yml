@@ -1,0 +1,27 @@
+# Тесты SentiGuard на каждый push и PR: что сервис обязан находить (ФИО, телефоны,
+# документы, адреса) и чего не должен (числа, «Проверка…», города и компании при списке типов).
+# Сервис стоит перед каждым запросом чата AI-Tech-API к модели: ошибка здесь ломает
+# ответы всем, поэтому без зелёного прогона в прод не выкатываем.
+name: tests
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  pytest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Зависимости
+        run: |
+          python -m pip install -U "pip>=24.3"
+          pip install -r requirements.txt
+          python -m spacy download en_core_web_sm
+      - name: Тесты
+        run: python -m pytest -q -W ignore tests/test_detect.py
